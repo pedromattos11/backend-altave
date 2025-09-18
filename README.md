@@ -42,3 +42,37 @@ Siga os passos abaixo para ter o projeto rodando em sua máquina local.
 **1. Clone o repositório:**
 ```bash
 git clone [https://github.com/pedromattos11/backend-altave.git](https://github.com/pedromattos11/backend-altave.git)
+
+. Navegue até a pasta do projeto:
+
+Bash
+cd backend-altave
+3. Configure o ambiente local:
+Para rodar localmente, a aplicação usa um banco de dados em memória (H2), que não exige nenhuma configuração extra. O perfil local já está configurado para usar o H2.
+
+Observação: Caso queira se conectar a um banco de dados MySQL externo (como o do Railway), crie um arquivo application-local.properties na pasta src/main/resources e adicione suas credenciais lá. Este arquivo é ignorado pelo Git.
+
+4. Execute a aplicação:
+Você pode rodar a aplicação de duas formas:
+
+Pela IDE: Encontre a classe principal BackendAltaveApplication.java e clique em "Run".
+
+Pelo terminal (usando o Maven Wrapper):
+
+Bash
+./mvnw spring-boot:run
+A aplicação estará disponível em http://localhost:8080.
+
+🗂️ Estrutura do Projeto
+A estrutura de pastas segue o padrão de projetos Spring Boot:
+
+.
+└── src
+    ├── main
+    │   ├── java            # Código-fonte principal da aplicação
+    │   └── resources
+    │       ├── db.migration  # Scripts SQL do Flyway para o banco de produção
+    │       ├── static        # Arquivos estáticos (CSS, JS, Imagens)
+    │       ├── templates     # Templates de view (ex: Thymeleaf)
+    │       └── application.properties # Configurações principais e de produção
+    └── test                # Código para testes automatizados
