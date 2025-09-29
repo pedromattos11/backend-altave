@@ -70,6 +70,15 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<configuration>
+					<url>jdbc:mysql://trolley.proxy.rlwy.net:42736/railway?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC</url>
+					<user>root</user>
+					<password>ZoMiOItfIOfTQUwplJXFYkBycPNGFKsW</password>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
