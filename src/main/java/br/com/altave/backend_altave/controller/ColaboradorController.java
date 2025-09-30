@@ -36,4 +36,18 @@ public class ColaboradorController {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Colaborador> update(@PathVariable Integer id, @RequestBody Colaborador colaborador) {
+        return service.update(id, colaborador)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/by-email/{email}")
+    public ResponseEntity<Colaborador> getByEmail(@PathVariable String email) {
+        return service.findByEmail(email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
