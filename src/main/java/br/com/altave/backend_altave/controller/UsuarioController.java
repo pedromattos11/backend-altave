@@ -2,6 +2,7 @@ package br.com.altave.backend_altave.controller;
 
 import br.com.altave.backend_altave.model.Usuario;
 import br.com.altave.backend_altave.service.UsuarioService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
@@ -29,6 +30,15 @@ public class UsuarioController {
     @PostMapping
     public Usuario create(@RequestBody Usuario obj) {
         return service.save(obj);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Usuario> login(@RequestBody Map<String, String> credentials) {
+        String email = credentials.get("email");
+        String senha = credentials.get("password");
+        return service.login(email, senha)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     @DeleteMapping("/{id}")

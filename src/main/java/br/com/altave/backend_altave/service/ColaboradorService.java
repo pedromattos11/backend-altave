@@ -29,4 +29,17 @@ public class ColaboradorService {
     public void deleteById(Integer id) {
         repo.deleteById(id);
     }
+
+    public Optional<Colaborador> update(Integer id, Colaborador newData) {
+        return repo.findById(id)
+                .map(existingColaborador -> {
+                    existingColaborador.setNome(newData.getNome());
+                    existingColaborador.setApresentacao(newData.getApresentacao());
+                    return repo.save(existingColaborador);
+                });
+    }
+
+    public Optional<Colaborador> findByEmail(String email) {
+        return repo.findByEmail(email);
+    }
 }
