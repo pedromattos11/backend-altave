@@ -8,6 +8,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/competencia")
+
 public class CompetenciaController {
 
     private final CompetenciaService service;

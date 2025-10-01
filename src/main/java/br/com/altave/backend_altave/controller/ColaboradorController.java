@@ -8,6 +8,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/colaborador")
+
 public class ColaboradorController {
 
     private final ColaboradorService service;
