@@ -34,3 +34,16 @@ build/
 
 # Ignorar arquivos de configuração locais com senhas
 application-local.properties
+application-production.properties
+application-development.properties
+
+# Secrets
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*
+secrets.yml
+secrets.json
+*token*
+*password*

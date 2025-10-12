@@ -37,10 +37,8 @@ public class Colaborador {
        inverseJoinColumns = @JoinColumn(name = "competencia_id"))
     private Set<Competencia> competencias = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "colaborador_softskill",
-       joinColumns = @JoinColumn(name = "colaborador_id"),
-       inverseJoinColumns = @JoinColumn(name = "softskill_id"))
+    @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<SoftSkill> softSkills = new HashSet<>();
 
     @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -59,7 +57,7 @@ public class Colaborador {
        inverseJoinColumns = @JoinColumn(name = "certificacao_id"))
     private Set<Certificacao> certificacoes = new HashSet<>();
 
-    // Getters and setters (only a few shown for brevity)
+    // Getters and setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public String getNome() { return nome; }
@@ -75,9 +73,13 @@ public class Colaborador {
     public Cargo getCargo() { return cargo; }
     public void setCargo(Cargo cargo) { this.cargo = cargo; }
     public Set<Competencia> getCompetencias() { return competencias; }
+    public void setCompetencias(Set<Competencia> competencias) { this.competencias = competencias; }
     public Set<SoftSkill> getSoftSkills() { return softSkills; }
+    public void setSoftSkills(Set<SoftSkill> softSkills) { this.softSkills = softSkills; }
     public Set<HardSkill> getHardSkills() { return hardSkills; }
+    public void setHardSkills(Set<HardSkill> hardSkills) { this.hardSkills = hardSkills; }
     public Set<Experiencia> getExperiencias() { return experiencias; }
+    public void setExperiencias(Set<Experiencia> experiencias) { this.experiencias = experiencias; }
     public Set<Certificacao> getCertificacoes() { return certificacoes; }
-
+    public void setCertificacoes(Set<Certificacao> certificacoes) { this.certificacoes = certificacoes; }
 }
