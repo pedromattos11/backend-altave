@@ -36,8 +36,14 @@ build/
 application-local.properties
 application-production.properties
 application-development.properties
+application.properties
+ENVIRONMENT_SETUP.md
 
-# Secrets
+
+# Environment variables and secrets
+.env
+.env.*
+.env.example
 *.pem
 *.key
 *.p12

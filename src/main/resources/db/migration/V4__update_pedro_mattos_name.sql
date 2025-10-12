@@ -1,1 +1,0 @@
-UPDATE colaborador SET nome = 'Pedro Agora é um Homem' WHERE id = 1;

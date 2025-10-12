@@ -42,9 +42,7 @@ CREATE TABLE IF NOT EXISTS colaborador (
 CREATE TABLE IF NOT EXISTS hard_skill (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome_competencia VARCHAR(60),
-    competencia_id INT,
     colaborador_id INT,
-    FOREIGN KEY (competencia_id) REFERENCES competencia(id),
     FOREIGN KEY (colaborador_id) REFERENCES colaborador(id)
 );
 

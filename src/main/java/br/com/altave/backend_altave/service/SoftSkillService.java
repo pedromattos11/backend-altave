@@ -1,7 +1,5 @@
 package br.com.altave.backend_altave.service;
 
-import br.com.altave.backend_altave.model.Colaborador;
-import br.com.altave.backend_altave.repository.ColaboradorRepository;
 import br.com.altave.backend_altave.repository.SoftSkillRepository;
 import br.com.altave.backend_altave.model.SoftSkill;
 import org.springframework.stereotype.Service;
@@ -11,11 +9,9 @@ import java.util.*;
 public class SoftSkillService {
 
     private final SoftSkillRepository repo;
-    private final ColaboradorRepository colaboradorRepository;
 
-    public SoftSkillService(SoftSkillRepository repo, ColaboradorRepository colaboradorRepository) {
+    public SoftSkillService(SoftSkillRepository repo) {
         this.repo = repo;
-        this.colaboradorRepository = colaboradorRepository;
     }
 
     public List<SoftSkill> findAll() {
@@ -27,11 +23,6 @@ public class SoftSkillService {
     }
 
     public SoftSkill save(SoftSkill obj) {
-        if (obj.getColaborador() != null && obj.getColaborador().getId() != null) {
-            Colaborador colaborador = colaboradorRepository.findById(obj.getColaborador().getId())
-                    .orElseThrow(() -> new NoSuchElementException("Colaborador não encontrado"));
-            obj.setColaborador(colaborador);
-        }
         return repo.save(obj);
     }
 

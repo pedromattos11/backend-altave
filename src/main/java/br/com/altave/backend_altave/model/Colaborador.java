@@ -37,8 +37,10 @@ public class Colaborador {
        inverseJoinColumns = @JoinColumn(name = "competencia_id"))
     private Set<Competencia> competencias = new HashSet<>();
 
-    @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @ManyToMany
+    @JoinTable(name = "colaborador_softskill",
+       joinColumns = @JoinColumn(name = "colaborador_id"),
+       inverseJoinColumns = @JoinColumn(name = "softskill_id"))
     private Set<SoftSkill> softSkills = new HashSet<>();
 
     @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true)
