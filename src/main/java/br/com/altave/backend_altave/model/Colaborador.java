@@ -37,7 +37,7 @@ public class Colaborador {
        inverseJoinColumns = @JoinColumn(name = "competencia_id"))
     private Set<Competencia> competencias = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "colaborador_softskill",
        joinColumns = @JoinColumn(name = "colaborador_id"),
        inverseJoinColumns = @JoinColumn(name = "softskill_id"))

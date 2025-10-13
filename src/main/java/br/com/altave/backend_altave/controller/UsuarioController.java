@@ -1,6 +1,7 @@
 package br.com.altave.backend_altave.controller;
 
 import br.com.altave.backend_altave.model.Usuario;
+import br.com.altave.backend_altave.dto.LoginResponse;
 import br.com.altave.backend_altave.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,11 +34,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<LoginResponse> login(@RequestBody Map<String, String> credentials) {
         String email = credentials.get("email");
         String senha = credentials.get("password");
         return service.login(email, senha)
-                .map(ResponseEntity::ok)
+                .map(usuario -> ResponseEntity.ok(new LoginResponse(usuario)))
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
