@@ -35,6 +35,8 @@ build/
 # Ignorar arquivos de configuração locais com senhas
 application-local.properties
 application-production.properties
+application-prod.properties
+application-dev.properties
 application-development.properties
 application.properties
 ENVIRONMENT_SETUP.md
