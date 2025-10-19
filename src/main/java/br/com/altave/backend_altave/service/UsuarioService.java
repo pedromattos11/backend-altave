@@ -60,6 +60,6 @@ public class UsuarioService {
 
     public Optional<Usuario> login(String email, String senha) {
         return repo.findByEmail(email)
-                .filter(usuario -> usuario.getSenha().equals(senha));
+                .filter(usuario -> senha.equals(usuario.getSenha()));
     }
 }

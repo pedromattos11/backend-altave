@@ -31,7 +31,7 @@ public class Colaborador {
     @JoinColumn(name = "cargo_id")
     private Cargo cargo;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "colaborador_competencia",
        joinColumns = @JoinColumn(name = "colaborador_id"),
        inverseJoinColumns = @JoinColumn(name = "competencia_id"))
@@ -47,13 +47,13 @@ public class Colaborador {
     @JsonManagedReference
     private Set<HardSkill> hardSkills = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "colaborador_experiencia",
        joinColumns = @JoinColumn(name = "colaborador_id"),
        inverseJoinColumns = @JoinColumn(name = "experiencia_id"))
     private Set<Experiencia> experiencias = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "colaborador_certificacao",
        joinColumns = @JoinColumn(name = "colaborador_id"),
        inverseJoinColumns = @JoinColumn(name = "certificacao_id"))

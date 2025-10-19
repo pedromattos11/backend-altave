@@ -40,7 +40,9 @@ application-dev.properties
 application-development.properties
 application.properties
 ENVIRONMENT_SETUP.md
-
+VERCEL_ENV_VARS.md
+run-local.bat
+run-local.ps1
 
 # Environment variables and secrets
 .env

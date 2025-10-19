@@ -1,0 +1,14 @@
+target/
+.mvn/
+mvnw
+mvnw.cmd
+*.log
+.git/
+.gitignore
+*.md
+README*
+.env*
+run-local.ps1
+*.txt
+docs/
+notes*

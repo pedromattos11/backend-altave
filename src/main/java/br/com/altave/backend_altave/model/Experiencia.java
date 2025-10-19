@@ -21,6 +21,10 @@ private String empresa;
 private LocalDate dataInicio;
 private LocalDate dataFim;
 
+@ManyToOne(fetch = FetchType.EAGER)
+@JoinColumn(name = "colaborador_id")
+private Colaborador colaborador;
+
 // getters/setters
 public Integer getId() { return id; }
 public void setId(Integer id) { this.id = id; }
@@ -32,5 +36,7 @@ public LocalDate getDataInicio() { return dataInicio; }
 public void setDataInicio(LocalDate dataInicio) { this.dataInicio = dataInicio; }
 public LocalDate getDataFim() { return dataFim; }
 public void setDataFim(LocalDate dataFim) { this.dataFim = dataFim; }
+public Colaborador getColaborador() { return colaborador; }
+public void setColaborador(Colaborador colaborador) { this.colaborador = colaborador; }
 
     }
