@@ -3,6 +3,7 @@ package br.com.altave.backend_altave.service;
 import br.com.altave.backend_altave.repository.ColaboradorRepository;
 import br.com.altave.backend_altave.model.Colaborador;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service

@@ -1,5 +1,6 @@
     package br.com.altave.backend_altave.model;
 
+    import com.fasterxml.jackson.annotation.JsonBackReference;
     import jakarta.persistence.*;
     import java.util.*;
     import java.time.*;
@@ -18,11 +19,15 @@ private String cargo;
 @Column(length = 60)
 private String empresa;
 
+@Column(name = "data_inicio")
 private LocalDate dataInicio;
+
+@Column(name = "data_fim")
 private LocalDate dataFim;
 
 @ManyToOne(fetch = FetchType.EAGER)
 @JoinColumn(name = "colaborador_id")
+@JsonBackReference("colaborador-experiencias")
 private Colaborador colaborador;
 
 // getters/setters

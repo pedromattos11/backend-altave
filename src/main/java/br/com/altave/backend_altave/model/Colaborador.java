@@ -43,14 +43,12 @@ public class Colaborador {
        inverseJoinColumns = @JoinColumn(name = "softskill_id"))
     private Set<SoftSkill> softSkills = new HashSet<>();
 
-    @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<HardSkill> hardSkills = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "colaborador_experiencia",
-       joinColumns = @JoinColumn(name = "colaborador_id"),
-       inverseJoinColumns = @JoinColumn(name = "experiencia_id"))
+    @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference("colaborador-experiencias")
     private Set<Experiencia> experiencias = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)

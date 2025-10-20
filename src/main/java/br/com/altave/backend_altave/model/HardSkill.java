@@ -11,7 +11,7 @@ public class HardSkill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 60)
+    @Column(name = "nome_competencia", length = 60)
     private String nomeCompetencia;
 
     @ManyToOne

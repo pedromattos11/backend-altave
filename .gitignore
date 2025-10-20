@@ -32,22 +32,29 @@ build/
 ### VS Code ###
 .vscode/
 
-# Ignorar arquivos de configuração locais com senhas
+# Arquivos de configuração locais
 application-local.properties
 application-production.properties
 application-prod.properties
 application-dev.properties
 application-development.properties
-application.properties
+
+# Documentação com informações sensíveis
 ENVIRONMENT_SETUP.md
 VERCEL_ENV_VARS.md
+CORREÇÕES*.md
+INSTRUÇÕES*.md
+
+# Scripts locais
 run-local.bat
 run-local.ps1
+test-*.ps1
+test-*.sh
+debug-*.*
 
 # Environment variables and secrets
 .env
 .env.*
-.env.example
 *.pem
 *.key
 *.p12
@@ -55,5 +62,8 @@ run-local.ps1
 credentials*
 secrets.yml
 secrets.json
+*secret*
 *token*
 *password*
+*api-key*
+*apikey*
