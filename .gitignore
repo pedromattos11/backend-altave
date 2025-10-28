@@ -67,3 +67,10 @@ secrets.json
 *password*
 *api-key*
 *apikey*
+
+# Uploaded files
+uploads/
+*.jpg
+*.jpeg
+*.png
+*.gif

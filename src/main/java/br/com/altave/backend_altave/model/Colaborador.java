@@ -22,8 +22,11 @@ public class Colaborador {
     @Column(precision = 10, scale = 0, unique = true)
     private Long cpf;
 
-    @Column(length = 100)
+    @Column(length = 2000)
     private String apresentacao;
+
+    @Column(length = 255)
+    private String profilePicturePath;
 
     private Integer perfil;
 
@@ -57,6 +60,10 @@ public class Colaborador {
        inverseJoinColumns = @JoinColumn(name = "certificacao_id"))
     private Set<Certificacao> certificacoes = new HashSet<>();
 
+    @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference("colaborador-projetos")
+    private Set<Projeto> projetos = new HashSet<>();
+
     // Getters and setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -68,6 +75,8 @@ public class Colaborador {
     public void setCpf(Long cpf) { this.cpf = cpf; }
     public String getApresentacao() { return apresentacao; }
     public void setApresentacao(String apresentacao) { this.apresentacao = apresentacao; }
+    public String getProfilePicturePath() { return profilePicturePath; }
+    public void setProfilePicturePath(String profilePicturePath) { this.profilePicturePath = profilePicturePath; }
     public Integer getPerfil() { return perfil; }
     public void setPerfil(Integer perfil) { this.perfil = perfil; }
     public Cargo getCargo() { return cargo; }
@@ -82,4 +91,6 @@ public class Colaborador {
     public void setExperiencias(Set<Experiencia> experiencias) { this.experiencias = experiencias; }
     public Set<Certificacao> getCertificacoes() { return certificacoes; }
     public void setCertificacoes(Set<Certificacao> certificacoes) { this.certificacoes = certificacoes; }
+    public Set<Projeto> getProjetos() { return projetos; }
+    public void setProjetos(Set<Projeto> projetos) { this.projetos = projetos; }
 }

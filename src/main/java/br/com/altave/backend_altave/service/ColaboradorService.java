@@ -1,18 +1,23 @@
 package br.com.altave.backend_altave.service;
 
 import br.com.altave.backend_altave.repository.ColaboradorRepository;
+import br.com.altave.backend_altave.repository.CargoRepository;
+import br.com.altave.backend_altave.repository.CertificacaoRepository;
 import br.com.altave.backend_altave.model.Colaborador;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
 public class ColaboradorService {
 
     private final ColaboradorRepository repo;
+    private final CargoRepository cargoRepo;
+    private final CertificacaoRepository certificacaoRepo;
 
-    public ColaboradorService(ColaboradorRepository repo) {
+    public ColaboradorService(ColaboradorRepository repo, CargoRepository cargoRepo, CertificacaoRepository certificacaoRepo) {
         this.repo = repo;
+        this.cargoRepo = cargoRepo;
+        this.certificacaoRepo = certificacaoRepo;
     }
 
     public List<Colaborador> findAll() {
@@ -36,11 +41,47 @@ public class ColaboradorService {
                 .map(existingColaborador -> {
                     existingColaborador.setNome(newData.getNome());
                     existingColaborador.setApresentacao(newData.getApresentacao());
+                    
+                    // Atualizar cargo se fornecido
+                    if (newData.getCargo() != null) {
+                        // Buscar o cargo pelo ID se ele já existe
+                        if (newData.getCargo().getId() != null) {
+                            cargoRepo.findById(newData.getCargo().getId())
+                                    .ifPresent(existingColaborador::setCargo);
+                        }
+                    }
+                    
                     return repo.save(existingColaborador);
                 });
     }
 
     public Optional<Colaborador> findByEmail(String email) {
         return repo.findByEmail(email);
+    }
+
+    public Optional<Colaborador> updateProfilePicture(Integer id, String profilePicturePath) {
+        return repo.findById(id)
+                .map(colaborador -> {
+                    colaborador.setProfilePicturePath(profilePicturePath);
+                    return repo.save(colaborador);
+                });
+    }
+
+    public Optional<Colaborador> addCertificacao(Integer colaboradorId, Integer certificacaoId) {
+        return repo.findById(colaboradorId)
+                .map(colaborador -> {
+                    certificacaoRepo.findById(certificacaoId).ifPresent(certificacao -> {
+                        colaborador.getCertificacoes().add(certificacao);
+                    });
+                    return repo.save(colaborador);
+                });
+    }
+
+    public Optional<Colaborador> removeCertificacao(Integer colaboradorId, Integer certificacaoId) {
+        return repo.findById(colaboradorId)
+                .map(colaborador -> {
+                    colaborador.getCertificacoes().removeIf(cert -> cert.getId().equals(certificacaoId));
+                    return repo.save(colaborador);
+                });
     }
 }
