@@ -1,8 +1,8 @@
 -- Inserir Cargo
 INSERT INTO cargo (id, nome_cargo) VALUES (1, 'Desenvolvedor Full Stack Sênior');
 
--- Inserir Colaborador
-INSERT INTO colaborador (id, nome, email, cpf, apresentacao, perfil, cargo_id) VALUES (1, 'Pedro Mattos', 'pedro.mattos@altave.com', 12345678901, 'Desenvolvedor full stack com 5+ anos de experiência. Especialista em React, Node.js e AWS.', 1, 1);
+-- Inserir Colaborador (mesmo email do usuário para fazer a ligação)
+INSERT INTO colaborador (id, nome, email, cpf, apresentacao, perfil, cargo_id) VALUES (1, 'Pedro Mattos', 'pedro@altave.com', 12345678901, 'Desenvolvedor full stack com 5+ anos de experiência. Especialista em React, Node.js e AWS.', 1, 1);
 
 -- Inserir Hard Skills (Competencias)
 INSERT INTO competencia (id, nome_competencia, tipo_habilidade) VALUES
