@@ -22,6 +22,15 @@ public class CompetenciaController {
         return service.findAll();
     }
 
+    /**
+     * Retorna apenas hard skills (tipo_habilidade = 'hard')
+     * Essas são as skills pré-definidas que o usuário pode escolher
+     */
+    @GetMapping("/hard")
+    public List<Competencia> listHardSkills() {
+        return service.findByTipoHabilidade("hard");
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Competencia> getById(@PathVariable Integer id) {
         return service.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());

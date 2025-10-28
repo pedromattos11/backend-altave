@@ -18,6 +18,10 @@ public class CompetenciaService {
         return repo.findAll();
     }
 
+    public List<Competencia> findByTipoHabilidade(String tipo) {
+        return repo.findByTipoHabilidade(tipo);
+    }
+
     public Optional<Competencia> findById(Integer id) {
         return repo.findById(id);
     }

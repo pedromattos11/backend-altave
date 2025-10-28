@@ -21,6 +21,14 @@ public class SoftSkillController {
         return service.findAll();
     }
 
+    /**
+     * Retorna soft skills disponíveis (pré-definidas)
+     */
+    @GetMapping("/available")
+    public List<SoftSkill> listAvailable() {
+        return service.findAll();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<SoftSkill> getById(@PathVariable Integer id) {
         return service.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
