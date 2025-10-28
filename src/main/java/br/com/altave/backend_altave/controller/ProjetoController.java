@@ -36,14 +36,18 @@ public class ProjetoController {
     public ResponseEntity<?> create(@RequestBody Projeto projeto) {
         try {
             // Garantir que o colaborador está configurado
-            if (projeto.getColaborador() != null && projeto.getColaborador().getId() != null) {
-                Projeto saved = service.save(projeto);
-                return ResponseEntity.ok(saved);
-            } else {
-                return ResponseEntity.badRequest().body("Colaborador ID é obrigatório");
+            if (projeto.getColaborador() == null || projeto.getColaborador().getId() == null) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Colaborador ID é obrigatório"));
             }
+            
+            Projeto saved = service.save(projeto);
+            return ResponseEntity.ok(saved);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
+            e.printStackTrace(); // Log para debug
+            return ResponseEntity.status(500).body(Map.of(
+                "error", "Erro ao salvar projeto: " + e.getMessage(),
+                "type", e.getClass().getSimpleName()
+            ));
         }
     }
 

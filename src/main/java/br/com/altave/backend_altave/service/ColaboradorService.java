@@ -39,16 +39,17 @@ public class ColaboradorService {
     public Optional<Colaborador> update(Integer id, Colaborador newData) {
         return repo.findById(id)
                 .map(existingColaborador -> {
-                    existingColaborador.setNome(newData.getNome());
-                    existingColaborador.setApresentacao(newData.getApresentacao());
+                    if (newData.getNome() != null) {
+                        existingColaborador.setNome(newData.getNome());
+                    }
+                    if (newData.getApresentacao() != null) {
+                        existingColaborador.setApresentacao(newData.getApresentacao());
+                    }
                     
                     // Atualizar cargo se fornecido
-                    if (newData.getCargo() != null) {
-                        // Buscar o cargo pelo ID se ele já existe
-                        if (newData.getCargo().getId() != null) {
-                            cargoRepo.findById(newData.getCargo().getId())
-                                    .ifPresent(existingColaborador::setCargo);
-                        }
+                    if (newData.getCargo() != null && newData.getCargo().getId() != null) {
+                        cargoRepo.findById(newData.getCargo().getId())
+                                .ifPresent(existingColaborador::setCargo);
                     }
                     
                     return repo.save(existingColaborador);
