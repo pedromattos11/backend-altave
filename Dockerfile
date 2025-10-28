@@ -1,13 +1,9 @@
-# Use Eclipse Temurin 17 como base
-FROM eclipse-temurin:17-jdk-alpine AS build
+# Dockerfile para Railway
+FROM maven:3.9-eclipse-temurin-17 AS build
 
-# Instalar Maven
-RUN apk add --no-cache maven
-
-# Definir diretório de trabalho
 WORKDIR /app
 
-# Copiar pom.xml primeiro para cache das dependências
+# Copiar pom.xml e baixar dependências primeiro (cache)
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
@@ -17,20 +13,19 @@ COPY src ./src
 # Build da aplicação
 RUN mvn clean package -DskipTests -B
 
-# Fase de runtime com imagem menor
-FROM eclipse-temurin:17-jre-alpine
+# Fase de runtime
+FROM eclipse-temurin:17-jre
 
-# Copiar JAR do estágio de build
-COPY --from=build /app/target/backend-altave-0.0.1-SNAPSHOT.jar /app/app.jar
+WORKDIR /app
 
-# Trabalhar como root para criar diretório e permissões
+# Copiar JAR
+COPY --from=build /app/target/backend-altave-0.0.1-SNAPSHOT.jar app.jar
+
+# Criar diretório de uploads
 RUN mkdir -p /app/uploads && chmod 755 /app/uploads
 
-# Expor porta
 EXPOSE 8080
 
-# Expor variáveis de ambiente
-ENV JAVA_OPTS=""
+ENV JAVA_OPTS="-Xmx512m -Xms256m"
 
-# Comando para iniciar a aplicação
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
+CMD ["java", "-jar", "app.jar"]
