@@ -147,4 +147,33 @@ public class ColaboradorController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // Soft Skills: associar por nome
+    @PostMapping("/{colaboradorId}/softskill")
+    public ResponseEntity<Colaborador> addSoftSkill(@PathVariable Integer colaboradorId, @RequestBody Map<String, Object> body) {
+        try {
+            Object nomeObj = body.get("nomeCompetencia");
+            Object idObj = body.get("softSkillId");
+
+            if (nomeObj instanceof String nome && !nome.trim().isEmpty()) {
+                return service.addSoftSkillByName(colaboradorId, nome).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
+            }
+            if (idObj instanceof Number num) {
+                return service.addSoftSkillById(colaboradorId, num.intValue()).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
+            }
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    // Soft Skills: desassociar
+    @DeleteMapping("/{colaboradorId}/softskill/{softSkillId}")
+    public ResponseEntity<Void> removeSoftSkill(@PathVariable Integer colaboradorId, @PathVariable Integer softSkillId) {
+        boolean updated = service.removeSoftSkill(colaboradorId, softSkillId).isPresent();
+        if (updated) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

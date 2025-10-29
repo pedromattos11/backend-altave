@@ -30,6 +30,9 @@ public class Colaborador {
 
     private Integer perfil;
 
+    @Column(name = "ultima_atualizacao")
+    private LocalDateTime ultimaAtualizacao;
+
     @ManyToOne
     @JoinColumn(name = "cargo_id")
     private Cargo cargo;
@@ -93,4 +96,7 @@ public class Colaborador {
     public void setCertificacoes(Set<Certificacao> certificacoes) { this.certificacoes = certificacoes; }
     public Set<Projeto> getProjetos() { return projetos; }
     public void setProjetos(Set<Projeto> projetos) { this.projetos = projetos; }
+    
+    public LocalDateTime getUltimaAtualizacao() { return ultimaAtualizacao; }
+    public void setUltimaAtualizacao(LocalDateTime ultimaAtualizacao) { this.ultimaAtualizacao = ultimaAtualizacao; }
 }
