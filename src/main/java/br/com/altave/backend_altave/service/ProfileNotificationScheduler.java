@@ -20,19 +20,15 @@ public class ProfileNotificationScheduler {
     private EmailService emailService;
 
     /**
-     * MODO TESTE: Executa a cada 2 minutos
-     * Verifica colaboradores com perfil desatualizado há mais de 2 minutos
-     * 
-     * Para voltar ao modo produção, altere para:
-     * @Scheduled(cron = "0 0 8 * * *") // Todos os dias às 8:00
-     * E mude: agora.minus(2, ChronoUnit.MINUTES) para agora.minus(6, ChronoUnit.MONTHS)
+     * MODO PRODUÇÃO: Executa todos os dias às 8:00
+     * Verifica colaboradores com perfil desatualizado há mais de 6 meses
      */
-    @Scheduled(cron = "0 */2 * * * *") // A cada 2 minutos (APENAS PARA TESTE)
+    @Scheduled(cron = "0 0 8 * * *") // Todos os dias às 8:00
     public void verificarPerfisDesatualizados() {
         System.out.println("Iniciando verificação de perfis desatualizados...");
         
         LocalDateTime agora = LocalDateTime.now();
-        LocalDateTime doisMinutosAtras = agora.minus(2, ChronoUnit.MINUTES);
+        LocalDateTime seisMesesAtras = agora.minus(6, ChronoUnit.MONTHS);
         
         // Buscar todos os colaboradores
         List<Colaborador> colaboradores = colaboradorRepository.findAll();
@@ -41,7 +37,7 @@ public class ProfileNotificationScheduler {
         
         for (Colaborador colaborador : colaboradores) {
             if (colaborador.getUltimaAtualizacao() == null || 
-                colaborador.getUltimaAtualizacao().isBefore(doisMinutosAtras)) {
+                colaborador.getUltimaAtualizacao().isBefore(seisMesesAtras)) {
                 
                 System.out.println("Perfil desatualizado encontrado: " + colaborador.getNome() + 
                                  " (Última atualização: " + colaborador.getUltimaAtualizacao() + ")");

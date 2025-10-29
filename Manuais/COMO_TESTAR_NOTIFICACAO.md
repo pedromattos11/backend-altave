@@ -8,17 +8,23 @@
 
 ## Passos para Testar
 
-### 1. Configurar Email (Railway)
+### 1. Configurar Email (Railway) - MODO FÁCIL
 
-No Railway, adicione as variáveis de ambiente:
+**NOVO: Agora é muito mais simples!** 
+
+#### Opção A: Testar SEM Configurar (Recomendado para demo)
+**Não configure nada!** O sistema vai mostrar nos logs que enviaria o email.
+
+#### Opção B: Configurar Resend (5 minutos)
+
+1. **Criar conta grátis**: https://resend.com/signup
+2. **Obter API Key**: https://resend.com/api-keys → "Create API Key"
+3. **No Railway, adicionar**:
 ```
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=seu-email@gmail.com
-MAIL_PASSWORD=sua-senha-de-app
+EMAIL_API_KEY=sua-chave-aqui
 ```
 
-**Para Gmail**: Gere uma "Senha de app" em https://myaccount.google.com/security
+⚠️ **NÃO precisa** de senha de app, SMTP, configurações complexas!
 
 ### 2. Fazer Deploy
 
@@ -85,7 +91,7 @@ Após a demonstração, edite o arquivo:
 
 **Alterar de:**
 ```java
-@Scheduled(cron = "0 */2 * * * *") // A cada 2 minutos (APENAS PARA TESTE)
+@Scheduled(cron = "0 */2 * * * *") // A cada 2 minutos (APENAS PARA TESTE presta atencao aqui cleber pelo amor de deus)
 LocalDateTime doisMinutosAtras = agora.minus(2, ChronoUnit.MINUTES);
 ```
 

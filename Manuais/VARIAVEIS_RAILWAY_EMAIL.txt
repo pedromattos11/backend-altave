@@ -1,0 +1,8 @@
+Email: pedro.hmattos19@gmail.com
+API Key: re_4szh5P34_PBwcppn8MubKs1nCZtA4mHwQ
+
+Adicione estas variáveis no Railway:
+
+EMAIL_API_KEY=re_4szh5P34_PBwcppn8MubKs1nCZtA4mHwQ
+EMAIL_FROM=pedro.hmattos19@gmail.com
+
