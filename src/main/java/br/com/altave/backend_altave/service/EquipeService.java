@@ -2,6 +2,7 @@ package br.com.altave.backend_altave.service;
 
 import br.com.altave.backend_altave.model.Colaborador;
 import br.com.altave.backend_altave.repository.ColaboradorRepository;
+import br.com.altave.backend_altave.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,9 @@ public class EquipeService {
 
     @Autowired
     private ColaboradorRepository colaboradorRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     /**
      * Retorna "Minha Equipe" baseado na hierarquia do colaborador.
@@ -99,7 +103,11 @@ public class EquipeService {
         simple.put("id", c.getId());
         simple.put("nome", c.getNome());
         simple.put("email", c.getEmail());
-        simple.put("perfil", c.getPerfil());
+        
+        // Adicionado para buscar o ID do usuário real, que é o "perfil" para o frontend
+        usuarioRepository.findByEmail(c.getEmail()).ifPresent(usuario -> {
+            simple.put("perfil", usuario.getId());
+        });
         
         if (c.getCargo() != null) {
             simple.put("cargo", c.getCargo().getNomeCargo());
