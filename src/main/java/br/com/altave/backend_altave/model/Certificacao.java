@@ -1,29 +1,24 @@
-    package br.com.altave.backend_altave.model;
+package br.com.altave.backend_altave.model;
 
-    import jakarta.persistence.*;
-    import java.util.*;
-    import java.time.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    @Entity
-    @Table(name = "certificacao")
-    public class Certificacao {
+@Entity
+@Table(name = "certificacao")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Certificacao {
 
     @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-@Column(length = 60)
-private String nomeCertificacao;
+    @Column(length = 60)
+    private String nomeCertificacao;
 
-@Column(length = 60)
-private String instituicao;
-
-// getters/setters
-public Integer getId() { return id; }
-public void setId(Integer id) { this.id = id; }
-public String getNomeCertificacao() { return nomeCertificacao; }
-public void setNomeCertificacao(String nomeCertificacao) { this.nomeCertificacao = nomeCertificacao; }
-public String getInstituicao() { return instituicao; }
-public void setInstituicao(String instituicao) { this.instituicao = instituicao; }
-
-    }
+    @Column(length = 60)
+    private String instituicao;
+}

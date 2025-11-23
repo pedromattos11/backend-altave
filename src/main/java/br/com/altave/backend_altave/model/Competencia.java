@@ -1,29 +1,24 @@
-    package br.com.altave.backend_altave.model;
+package br.com.altave.backend_altave.model;
 
-    import jakarta.persistence.*;
-    import java.util.*;
-    import java.time.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    @Entity
-    @Table(name = "competencia")
-    public class Competencia {
+@Entity
+@Table(name = "competencia")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Competencia {
 
     @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-@Column(length = 60)
-private String nomeCompetencia;
+    @Column(length = 60)
+    private String nomeCompetencia;
 
-@Column(length = 60)
-private String tipoHabilidade;
-
-// getters/setters
-public Integer getId() { return id; }
-public void setId(Integer id) { this.id = id; }
-public String getNomeCompetencia() { return nomeCompetencia; }
-public void setNomeCompetencia(String nomeCompetencia) { this.nomeCompetencia = nomeCompetencia; }
-public String getTipoHabilidade() { return tipoHabilidade; }
-public void setTipoHabilidade(String tipoHabilidade) { this.tipoHabilidade = tipoHabilidade; }
-
-    }
+    @Column(length = 60)
+    private String tipoHabilidade;
+}

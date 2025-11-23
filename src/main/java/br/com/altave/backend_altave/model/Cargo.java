@@ -1,24 +1,21 @@
-    package br.com.altave.backend_altave.model;
+package br.com.altave.backend_altave.model;
 
-    import jakarta.persistence.*;
-    import java.util.*;
-    import java.time.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    @Entity
-    @Table(name = "cargo")
-    public class Cargo {
+@Entity
+@Table(name = "cargo")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Cargo {
 
     @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-@Column(length = 60, nullable = false)
-private String nomeCargo;
-
-// getters/setters
-public Integer getId() { return id; }
-public void setId(Integer id) { this.id = id; }
-public String getNomeCargo() { return nomeCargo; }
-public void setNomeCargo(String nomeCargo) { this.nomeCargo = nomeCargo; }
-
-    }
+    @Column(length = 60, nullable = false)
+    private String nomeCargo;
+}

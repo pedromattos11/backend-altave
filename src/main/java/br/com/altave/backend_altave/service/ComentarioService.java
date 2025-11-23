@@ -54,7 +54,10 @@ public class ComentarioService {
 
     // Criar um novo comentário
     public Comentario criarComentario(Integer idColaboradorOrigem, Integer idColaboradorDestino, String textoComentario) {
-        Comentario comentario = new Comentario(idColaboradorOrigem, idColaboradorDestino, textoComentario);
+        Comentario comentario = new Comentario();
+        comentario.setIdColaboradorOrigem(idColaboradorOrigem);
+        comentario.setIdColaboradorDestino(idColaboradorDestino);
+        comentario.setTextoComentario(textoComentario);
         return save(comentario);
     }
 }

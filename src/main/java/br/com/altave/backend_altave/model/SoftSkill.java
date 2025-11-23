@@ -1,9 +1,15 @@
 package br.com.altave.backend_altave.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "soft_skill")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SoftSkill {
 
     @Id
@@ -12,27 +18,4 @@ public class SoftSkill {
 
     @Column(name = "nome_competencia")
     private String nomeCompetencia;
-
-    public SoftSkill() {
-    }
-
-    public SoftSkill(String nomeCompetencia) {
-        this.nomeCompetencia = nomeCompetencia;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNomeCompetencia() {
-        return nomeCompetencia;
-    }
-
-    public void setNomeCompetencia(String nomeCompetencia) {
-        this.nomeCompetencia = nomeCompetencia;
-    }
 }

@@ -38,6 +38,7 @@ application-production.properties
 application-prod.properties
 application-dev.properties
 application-development.properties
+application.properties
 
 # Documentação com informações sensíveis
 ENVIRONMENT_SETUP.md
@@ -51,6 +52,11 @@ run-local.ps1
 test-*.ps1
 test-*.sh
 debug-*.*
+run-sql-fix.ps1
+teste-email.sh
+populate_hierarchy.py
+fix_hierarchy.py
+*.py
 
 # Environment variables and secrets
 .env
@@ -74,3 +80,25 @@ uploads/
 *.jpeg
 *.png
 *.gif
+
+# Log files
+*.log
+backend.log
+
+# Maven
+.mvn/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# Node
+package-lock.json
+
+# macOS
+.DS_Store
+
+# SQL
+*.sql

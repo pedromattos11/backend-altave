@@ -1,6 +1,8 @@
 package br.com.altave.backend_altave.controller;
 
 import br.com.altave.backend_altave.model.SoftSkill;
+import br.com.altave.backend_altave.dto.ColaboradorSoftSkillDTO;
+import br.com.altave.backend_altave.dto.SoftSkillDTO;
 import br.com.altave.backend_altave.service.SoftSkillService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,24 @@ public class SoftSkillController {
         this.service = service;
     }
 
+    // Endpoint legado (evite usar para listagem completa)
     @GetMapping
     public List<SoftSkill> list() {
         return service.findAll();
+    }
+    
+    /**
+     * Endpoint otimizado para dashboard que retorna DTOs.
+     * USE ESTE ao invés do endpoint GET /api/softskill para melhor performance.
+     */
+    @GetMapping("/light")
+    public List<SoftSkillDTO> listLight() {
+        return service.findAllLight();
+    }
+
+    @GetMapping("/colaborador-map")
+    public List<ColaboradorSoftSkillDTO> listColaboradorMap() {
+        return service.findAllColaboradorSoftSkillMap();
     }
 
     /**

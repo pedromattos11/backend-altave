@@ -6,6 +6,7 @@ import br.com.altave.backend_altave.repository.CertificacaoRepository;
 import br.com.altave.backend_altave.repository.SoftSkillRepository;
 import br.com.altave.backend_altave.model.Colaborador;
 import br.com.altave.backend_altave.model.SoftSkill;
+import br.com.altave.backend_altave.dto.ColaboradorListDTO;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import java.time.LocalDateTime;
@@ -25,8 +26,17 @@ public class ColaboradorService {
         this.softSkillRepo = softSkillRepo;
     }
 
+    public long countTotalColaboradores() {
+        return repo.countTotalColaboradores();
+    }
+
     public List<Colaborador> findAll() {
-        return repo.findAll();
+        return repo.findAllWithCargo();
+    }
+
+    // Lista leve para o dashboard (sem N+1)
+    public List<ColaboradorListDTO> findAllLight() {
+        return repo.findAllOptimized();
     }
 
     public Optional<Colaborador> findById(Integer id) {
@@ -54,12 +64,24 @@ public class ColaboradorService {
                     if (newData.getApresentacao() != null) {
                         existingColaborador.setApresentacao(newData.getApresentacao());
                     }
+                    if (newData.getEmail() != null) {
+                        existingColaborador.setEmail(newData.getEmail());
+                    }
+                    if (newData.getCpf() != null) {
+                        existingColaborador.setCpf(newData.getCpf());
+                    }
+                    if (newData.getPerfil() != null) {
+                        existingColaborador.setPerfil(newData.getPerfil());
+                    }
                     
                     // Atualizar cargo se fornecido
                     if (newData.getCargo() != null && newData.getCargo().getId() != null) {
                         cargoRepo.findById(newData.getCargo().getId())
                                 .ifPresent(existingColaborador::setCargo);
                     }
+                    
+                    // Note: We intentionally do NOT update collections (softSkills, hardSkills, experiencias, etc.)
+                    // These should be managed through dedicated endpoints to avoid conflicts and ensure proper cascade behavior
                     
                     // Atualizar timestamp da última atualização
                     existingColaborador.setUltimaAtualizacao(LocalDateTime.now());
@@ -108,7 +130,11 @@ public class ColaboradorService {
         return repo.findById(colaboradorId)
                 .map(colaborador -> {
                     SoftSkill softSkill = softSkillRepo.findByNomeCompetencia(normalized)
-                            .orElseGet(() -> softSkillRepo.save(new SoftSkill(normalized)));
+                            .orElseGet(() -> {
+                                SoftSkill newSkill = new SoftSkill();
+                                newSkill.setNomeCompetencia(normalized);
+                                return softSkillRepo.save(newSkill);
+                            });
 
                     Set<SoftSkill> set = colaborador.getSoftSkills();
                     if (set == null) {
@@ -140,13 +166,17 @@ public class ColaboradorService {
     public Optional<Colaborador> removeSoftSkill(Integer colaboradorId, Integer softSkillId) {
         if (softSkillId == null) return Optional.empty();
 
+        // Otimizado: remove diretamente da tabela de associação sem carregar o objeto completo
         return repo.findById(colaboradorId)
                 .map(colaborador -> {
                     Set<SoftSkill> set = colaborador.getSoftSkills();
                     if (set != null) {
                         set.removeIf(s -> softSkillId.equals(s.getId()));
                     }
-                    return repo.save(colaborador);
+                    // Atualiza apenas a timestamp sem forçar reload de tudo
+                    colaborador.setUltimaAtualizacao(LocalDateTime.now());
+                    repo.save(colaborador);
+                    return colaborador; // Retorna o mesmo objeto sem recarregar
                 });
     }
 }

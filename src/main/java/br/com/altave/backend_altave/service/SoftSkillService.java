@@ -2,6 +2,8 @@ package br.com.altave.backend_altave.service;
 
 import br.com.altave.backend_altave.repository.SoftSkillRepository;
 import br.com.altave.backend_altave.model.SoftSkill;
+import br.com.altave.backend_altave.dto.ColaboradorSoftSkillDTO;
+import br.com.altave.backend_altave.dto.SoftSkillDTO;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -16,6 +18,18 @@ public class SoftSkillService {
 
     public List<SoftSkill> findAll() {
         return repo.findAll();
+    }
+    
+    /**
+     * Versão otimizada que retorna DTOs ao invés de entidades completas.
+     * Evita problemas de performance.
+     */
+    public List<SoftSkillDTO> findAllLight() {
+        return repo.findAllLight();
+    }
+
+    public List<ColaboradorSoftSkillDTO> findAllColaboradorSoftSkillMap() {
+        return repo.findAllColaboradorSoftSkillMap();
     }
 
     public Optional<SoftSkill> findById(Integer id) {

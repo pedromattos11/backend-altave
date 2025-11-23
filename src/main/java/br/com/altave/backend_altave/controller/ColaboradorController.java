@@ -1,6 +1,7 @@
 package br.com.altave.backend_altave.controller;
 
 import br.com.altave.backend_altave.model.Colaborador;
+import br.com.altave.backend_altave.dto.ColaboradorListDTO;
 import br.com.altave.backend_altave.service.ColaboradorService;
 import br.com.altave.backend_altave.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,24 @@ public class ColaboradorController {
         this.fileService = fileService;
     }
 
+    // Endpoint legado (retorna entidade completa) - evite usar no dashboard
     @GetMapping
     public List<Colaborador> list() {
         return service.findAll();
+    }
+
+    // Endpoint leve para o dashboard: usa DTO e queries de contagem
+    @GetMapping("/list")
+    public List<ColaboradorListDTO> listLight() {
+        return service.findAllLight();
+    }
+
+    // Endpoint otimizado para contagem
+    @GetMapping("/count")
+    public ResponseEntity<Map<String, Long>> count() {
+        Map<String, Long> response = new HashMap<>();
+        response.put("total", service.countTotalColaboradores());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")

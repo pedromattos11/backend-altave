@@ -1,10 +1,16 @@
 package br.com.altave.backend_altave.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "hard_skill")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"colaborador"})
+@ToString(exclude = {"colaborador"})
 public class HardSkill {
 
     @Id
@@ -14,24 +20,14 @@ public class HardSkill {
     @Column(name = "nome_competencia", length = 60)
     private String nomeCompetencia;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "colaborador_id")
-    @JsonBackReference
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "hardSkills", "softSkills", "competencias", "experiencias", "certificacoes", "projetos"})
     private Colaborador colaborador;
 
-    // Constructors
-    public HardSkill() {}
+    @Column(name = "is_highlighted", columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean isHighlighted = false;
 
-    public HardSkill(String nomeCompetencia) {
-        this.nomeCompetencia = nomeCompetencia;
-    }
-
-    // getters/setters
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-    public String getNomeCompetencia() { return nomeCompetencia; }
-    public void setNomeCompetencia(String nomeCompetencia) { this.nomeCompetencia = nomeCompetencia; }
-    public Colaborador getColaborador() { return colaborador; }
-    public void setColaborador(Colaborador colaborador) { this.colaborador = colaborador; }
-
+    @Column(name = "order_position")
+    private Integer orderPosition;
 }
