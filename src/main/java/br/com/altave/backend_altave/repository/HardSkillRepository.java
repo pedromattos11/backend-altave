@@ -19,7 +19,9 @@ public interface HardSkillRepository extends JpaRepository<HardSkill, Integer> {
         SELECT new br.com.altave.backend_altave.dto.HardSkillDTO(
             h.id,
             h.nomeCompetencia,
-            h.colaborador.id
+            h.colaborador.id,
+            h.isHighlighted,
+            h.orderPosition
         )
         FROM HardSkill h
         ORDER BY h.nomeCompetencia ASC

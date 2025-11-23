@@ -36,11 +36,11 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Intege
             c.id, 
             c.nome, 
             c.email, 
-            COALESCE(ca.nomeCargo, "Não definido"), 
+            COALESCE(ca.nomeCargo, 'Não definido'), 
             c.profilePicturePath,
-            (SELECT COUNT(DISTINCT h.id) FROM HardSkill h WHERE h.colaborador.id = c.id),
-            (SELECT COUNT(DISTINCT cs.id) FROM Colaborador co JOIN co.softSkills cs WHERE co.id = c.id),
-            (SELECT COUNT(DISTINCT cert.id) FROM Colaborador co JOIN co.certificacoes cert WHERE co.id = c.id)
+            CAST((SELECT COUNT(DISTINCT h.id) FROM HardSkill h WHERE h.colaborador.id = c.id) AS int),
+            CAST((SELECT COUNT(DISTINCT cs.id) FROM Colaborador co JOIN co.softSkills cs WHERE co.id = c.id) AS int),
+            CAST((SELECT COUNT(DISTINCT cert.id) FROM Colaborador co JOIN co.certificacoes cert WHERE co.id = c.id) AS int)
         )
         FROM Colaborador c
         LEFT JOIN c.cargo ca
